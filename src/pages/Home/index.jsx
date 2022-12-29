@@ -1,7 +1,21 @@
-import React from "react";
-import { Card } from "../../components/Card";
+import React, { useState } from "react";
+import Card from "../../components/Card";
 
 function Home() {
+  const [studentName, setSudentName] = useState('');
+  const [students, setStudents] = useState([]);
+ 
+ function handleAddStudent(){
+   const newStudent = {
+    name: studentName,
+   
+  
+   }
+
+   setStudents(prevState => [...prevState, newStudent]);
+
+ }
+ 
   return (
     <div
       style={{
@@ -37,13 +51,28 @@ function Home() {
             height: 20,
             padding: 10,
             backgroundColor: "rgb(211, 211, 211)",
-            width: 300
+            width: 300,
           }}
+          onChange={e => setSudentName(e.target.value)}
           type="text"
           placeholder="Digite Aqui"
         />
+
+        <input
+          style={{
+            borderRadius: 5,
+            height: 20,
+            padding: 10,
+            backgroundColor: "rgb(211, 211, 211)",
+            width: 300,
+         }}
+          type="number & string"
+          placeholder="Horário"
+        />
+
         <button
           type="button"
+          onClick={handleAddStudent}
           style={{
             margin: 10,
             padding: 10,
@@ -55,10 +84,10 @@ function Home() {
         >
           Adicionar
         </button>
-
-        <Card />
-        <Card />
-        <Card />
+        {
+          students.map(student =>  <Card name={student.name} time={student.time}/>)
+      
+          }
       </div>
     </div>
   );
