@@ -2,20 +2,24 @@ import React, { useState } from "react";
 import Card from "../../components/Card";
 
 function Home() {
-  const [studentName, setSudentName] = useState('');
+  const [studentName, setSudentName] = useState("");
   const [students, setStudents] = useState([]);
- 
- function handleAddStudent(){
-   const newStudent = {
-    name: studentName,
-   
-  
-   }
 
-   setStudents(prevState => [...prevState, newStudent]);
+  function handleAddStudent() {
+    const newStudent = {
+      name: studentName,
+      time: new Date().toLocaleTimeString("pt-br", {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      })
+    };
 
- }
- 
+    setStudents((prevState) => [...prevState, newStudent]);
+  }
+
+  const RemoveItens = ({ on})
+
   return (
     <div
       style={{
@@ -23,6 +27,7 @@ function Home() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+
       }}
     >
       <h1
@@ -53,21 +58,9 @@ function Home() {
             backgroundColor: "rgb(211, 211, 211)",
             width: 300,
           }}
-          onChange={e => setSudentName(e.target.value)}
+          onChange={(e) => setSudentName(e.target.value)}
           type="text"
-          placeholder="Digite Aqui"
-        />
-
-        <input
-          style={{
-            borderRadius: 5,
-            height: 20,
-            padding: 10,
-            backgroundColor: "rgb(211, 211, 211)",
-            width: 300,
-         }}
-          type="number & string"
-          placeholder="Horário"
+          placeholder="Digite Aqui o Item e o Horário"
         />
 
         <button
@@ -84,10 +77,14 @@ function Home() {
         >
           Adicionar
         </button>
-        {
-          students.map(student =>  <Card name={student.name} time={student.time}/>)
-      
-          }
+
+        {students.map((student) => (
+          <Card 
+          key={student.time}
+          name={student.name} 
+          time={student.time} />
+
+        ))}
       </div>
     </div>
   );
